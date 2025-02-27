@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadData();
   
   // 检查是否需要显示吸烟检查
-  chrome.storage.local.get(['lastCheckTime'], function(result) {
+  chrome.storage.sync.get(['lastCheckTime'], function(result) {
     const now = new Date().getTime();
     const lastCheck = result.lastCheckTime || 0;
     
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 没有吸烟按钮
   noSmokeBtn.addEventListener('click', function() {
-    chrome.storage.local.get(['quitTime', 'smokeFree'], function(result) {
+    chrome.storage.sync.get(['quitTime', 'smokeFree'], function(result) {
       let quitTime = result.quitTime || new Date().getTime();
       let smokeFree = result.smokeFree || 0;
       
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
       smokeFree += 1;
       
       // 保存数据
-      chrome.storage.local.set({
+      chrome.storage.sync.set({
         quitTime: quitTime,
         smokeFree: smokeFree,
         lastCheckTime: new Date().getTime()
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const now = new Date().getTime();
     const dateStr = new Date().toLocaleString();
     
-    chrome.storage.local.get(['smokeHistory'], function(result) {
+    chrome.storage.sync.get(['smokeHistory'], function(result) {
       let history = result.smokeHistory || [];
       history.push({
         time: now,
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       // 重置戒烟时间
-      chrome.storage.local.set({
+      chrome.storage.sync.set({
         quitTime: now,
         smokeFree: 0,
         lastCheckTime: now,
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 重置按钮
   resetBtn.addEventListener('click', function() {
     if (confirm('确定要重置所有戒烟记录吗？')) {
-      chrome.storage.local.clear(function() {
+      chrome.storage.sync.clear(function() {
         loadData();
         showMessage('所有记录已重置。新的开始，加油！');
       });
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 加载数据函数
   function loadData() {
-    chrome.storage.local.get(['quitTime', 'smokeFree', 'smokeHistory'], function(result) {
+    chrome.storage.sync.get(['quitTime', 'smokeFree', 'smokeHistory'], function(result) {
       const smokeFree = result.smokeFree || 0;
       const quitTime = result.quitTime || new Date().getTime();
       const history = result.smokeHistory || [];

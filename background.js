@@ -6,9 +6,9 @@ chrome.runtime.onInstalled.addListener(function() {
   });
   
   // 初始化存储
-  chrome.storage.local.get(['quitTime', 'smokeFree'], function(result) {
+  chrome.storage.sync.get(['quitTime', 'smokeFree'], function(result) {
     if (!result.quitTime) {
-      chrome.storage.local.set({
+      chrome.storage.sync.set({
         quitTime: new Date().getTime(),
         smokeFree: 0,
         lastCheckTime: 0,
@@ -31,7 +31,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
     });
     
     // 更新最后检查时间
-    chrome.storage.local.set({
+    chrome.storage.sync.set({
       lastCheckTime: new Date().getTime()
     });
   }
