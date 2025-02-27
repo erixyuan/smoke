@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>戒烟助手</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>戒烟助手</h1>
+    
+    <div id="stats">
+      <p>当前戒烟时间: <span id="current-time">0</span> 小时</p>
+      <p>距离21天目标: 还剩 <span id="remaining-time">504</span> 小时</p>
+      <p>上次吸烟时间: <span id="last-smoke-time">未记录</span></p>
+    </div>
+    
+    <div id="smoke-check" class="hidden">
+      <h2>过去一小时内您吸烟了吗？</h2>
+      <div class="buttons">
+        <button id="no-smoke">没有</button>
+        <button id="yes-smoke">是的</button>
+      </div>
+    </div>
+    
+    <div id="smoke-count" class="hidden">
+      <h2>您吸了多少根烟？</h2>
+      <input type="number" id="cigarette-count" min="1" value="1">
+      <button id="submit-count">提交</button>
+    </div>
+    
+    <div id="message" class="hidden">
+      <p id="message-text"></p>
+      <button id="close-message">关闭</button>
+    </div>
+    
+    <div class="footer">
+      <button id="reset">重置记录</button>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 
